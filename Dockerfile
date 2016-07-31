@@ -1,1 +1,1 @@
-FROM vault:latest
+FROM cgswong/vault:latest

@@ -10,7 +10,10 @@ if [ -d /Storage/www/database/vault ]; then
     DATA_DIR="-v /Storage/www/database/vault:/vault/file"
 fi
 
-CONFIG='{"backend": {"file": {"path": "/vault/file"}}, "default_lease_ttl": "24h"}'
+CONFIG_FILE="-v ${PWD}/config.conf:/config.conf"
+if [ -f /Storage/www/vault_config.hcl ]; then
+    CONFIG_FILE="-v /Storage/www/vault_config.conf:/config.conf"
+fi
 
 echo "Building $APP_NAME image"
 docker build -t $APP_NAME .
@@ -22,5 +25,5 @@ echo "Running $APP_NAME container"
 docker run $RUN_FLAG --name $APP_NAME \
     -p 8200:8200 \
     --cap-add=IPC_LOCK \
-    -e "VAULT_LOCAL_CONFIG=$CONFIG" \
-    $APP_NAME server
+    $CONFIG_FILE \
+    $APP_NAME server -config /config.conf
