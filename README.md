@@ -13,7 +13,7 @@ This should only need to be run the first time.
 1. `vault init`
 2. Copy keys and root token
 
-#### Unseal
+#### Unseal (This must be done on every reboot)
 1. `vault unseal`
 2. Insert key 1
 3. Repeat unseal command 2 more times putting in a different key each time.
