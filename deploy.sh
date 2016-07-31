@@ -11,7 +11,7 @@ if [ -d /Storage/www/database/vault ]; then
 fi
 
 CONFIG_FILE="-v ${PWD}/config.conf:/config.conf"
-if [ -f /Storage/www/vault_config.hcl ]; then
+if [ -f /Storage/www/vault_config.conf ]; then
     CONFIG_FILE="-v /Storage/www/vault_config.conf:/config.conf"
 fi
 
@@ -26,4 +26,5 @@ docker run $RUN_FLAG --name $APP_NAME \
     -p 8200:8200 \
     --cap-add=IPC_LOCK \
     $CONFIG_FILE \
+    $DATA_DIR \
     $APP_NAME server -config /config.conf
